@@ -20,5 +20,8 @@ pipeline {
                 '''
             }
         }
+        stage('Test'){
+            echo "I am in test stage"
+        }
     }
 }
