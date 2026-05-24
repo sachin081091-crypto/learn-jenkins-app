@@ -21,7 +21,7 @@ pipeline {
             }
         }
         stage('Test'){
-            echo "I am in test stage"
+            echo 'I am in test stage'
         }
     }
 }
