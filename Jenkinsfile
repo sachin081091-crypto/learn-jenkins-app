@@ -42,8 +42,9 @@ pipeline {
             }
             steps {
               sh 'echo "I am in E2E stage"'
-              sh 'npm install -g serve'
-              sh 'node_modules/.bin/serve -s build'
+              sh 'npm install serve'
+              sh 'node_modules/.bin/serve -s build &'
+              sh 'sleep 10'
               sh 'npx playwright test'
             }
         }
