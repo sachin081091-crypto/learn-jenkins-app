@@ -35,6 +35,12 @@ pipeline {
             sh 'test -f build/index.html'
             sh 'npm test'
           }
+          post {
+            always {
+              junit 'jest-results/junit.xml'
+            }
+          }
+
         }
         stage('E2E') {
           agent {
@@ -50,14 +56,14 @@ pipeline {
             sh 'sleep 10'
             sh 'npx playwright test --reporter=html'
           }
+          post {
+            always {
+              publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'index.html', useWrapperFileDirectly: true])
+            }
+          }
         }
       }
     }
   }
-  post {
-    always {
-      junit 'jest-results/junit.xml'
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'index.html', useWrapperFileDirectly: true])
-    }
-  }
+
 }
