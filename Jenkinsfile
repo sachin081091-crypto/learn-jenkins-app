@@ -2,7 +2,6 @@ pipeline {
   agent any
 
   stages {
-    /*
     stage('Build') {
         agent {
             docker {
@@ -20,10 +19,10 @@ pipeline {
             ls -la
             '''
         }
-    } */
+    } 
     stage('RunTest') {
       parallel {
-        stage('Test') {
+        stage('Tests') {
           agent {
             docker {
               image 'node:18-alpine'
@@ -63,6 +62,9 @@ pipeline {
           }
         }
       }
+    }
+    stage('Deploy'){
+        echo "deployment completed successfully!"
     }
   }
 
